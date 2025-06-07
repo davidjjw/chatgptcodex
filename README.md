@@ -11,3 +11,6 @@
    ```bash
    python run.py
    ```
+
+첫 실행 시 `app.db` 파일이 생성되며 `/auth/register` 페이지에서
+새 계정을 만들어 로그인할 수 있습니다.

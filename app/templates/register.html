@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-lg font-bold mb-4">회원가입</h1>
+<form method="post" class="space-y-2">
+    <input type="text" name="username" placeholder="사용자 이름" class="border p-2 w-full" required>
+    <input type="password" name="password" placeholder="비밀번호" class="border p-2 w-full" required>
+    <button class="bg-green-500 text-white px-4 py-2" type="submit">가입</button>
+</form>
+<p class="mt-2"><a href="{{ url_for('auth.login') }}">로그인</a></p>
+{% endblock %}
