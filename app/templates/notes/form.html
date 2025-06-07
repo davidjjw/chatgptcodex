@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-xl font-bold mb-4">{{ note and '노트 수정' or '새 노트' }}</h1>
+<form method="post" class="space-y-2">
+    <input type="text" name="title" value="{{ note.title if note else '' }}" placeholder="제목" class="border p-2 w-full" required>
+    <textarea name="body" class="border p-2 w-full" rows="10" placeholder="내용">{{ note.body if note else '' }}</textarea>
+    <button class="bg-blue-500 text-white px-4 py-2" type="submit">저장</button>
+</form>
+{% endblock %}

@@ -39,3 +39,13 @@ class Section(db.Model):
 
     notebook = db.relationship('Notebook', backref=db.backref('sections', lazy=True))
     parent = db.relationship('Section', remote_side=[id], backref='children')
+
+class Note(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(150), nullable=False)
+    body = db.Column(db.Text)
+    section_id = db.Column(db.Integer, db.ForeignKey('section.id'), nullable=False)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
+
+    section = db.relationship('Section', backref=db.backref('notes', lazy=True))

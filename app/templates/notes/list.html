@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-xl font-bold mb-4">노트 목록 - {{ section.title }}</h1>
+<a href="{{ url_for('notes.create_note', nb_id=notebook.id, sec_id=section.id) }}" class="text-blue-500">새 노트</a>
+<ul class="mt-4 space-y-2">
+    {% for note in notes %}
+    <li class="border p-2 flex justify-between">
+        <span>{{ note.title }}</span>
+        <span>
+            <a href="{{ url_for('notes.edit_note', nb_id=notebook.id, sec_id=section.id, note_id=note.id) }}" class="text-green-500 mr-2">수정</a>
+            <form method="post" action="{{ url_for('notes.delete_note', nb_id=notebook.id, sec_id=section.id, note_id=note.id) }}" class="inline">
+                <button class="text-red-500" onclick="return confirm('삭제하시겠습니까?')">삭제</button>
+            </form>
+        </span>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
