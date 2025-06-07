@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-xl font-bold mb-4">{{ section and '섹션 수정' or '새 섹션' }}</h1>
+<form method="post" class="space-y-2">
+    <input type="text" name="title" value="{{ section.title if section else '' }}" placeholder="제목" class="border p-2 w-full" required>
+    <select name="parent_id" class="border p-2 w-full">
+        <option value="">상위 없음</option>
+        {% for p in parents %}
+        <option value="{{ p.id }}" {% if p.id == parent_id %}selected{% endif %}>{{ p.title }}</option>
+        {% endfor %}
+    </select>
+    <button class="bg-blue-500 text-white px-4 py-2" type="submit">저장</button>
+</form>
+{% endblock %}

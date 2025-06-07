@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-xl font-bold mb-4">섹션 목록 - {{ notebook.title }}</h1>
+<a href="{{ url_for('sections.create_section', nb_id=notebook.id) }}" class="text-blue-500">새 섹션</a>
+<ul class="mt-4 space-y-2">
+    {% for sec in sections %}
+    <li class="border p-2">
+        <span>{{ sec.title }}</span>
+        <span class="ml-2">
+            <a href="{{ url_for('sections.create_section', nb_id=notebook.id, parent_id=sec.id) }}" class="text-sm text-blue-400 mr-1">하위 추가</a>
+            <a href="{{ url_for('sections.edit_section', nb_id=notebook.id, sec_id=sec.id) }}" class="text-green-500 mr-1">수정</a>
+            <form method="post" action="{{ url_for('sections.delete_section', nb_id=notebook.id, sec_id=sec.id) }}" class="inline">
+                <button class="text-red-500" onclick="return confirm('삭제하시겠습니까?')">삭제</button>
+            </form>
+        </span>
+        {% if sec.children %}
+        <ul class="ml-6 mt-2 space-y-1">
+            {% for child in sec.children %}
+            <li class="border p-1">
+                <span>{{ child.title }}</span>
+                <span class="ml-1">
+                    <a href="{{ url_for('sections.edit_section', nb_id=notebook.id, sec_id=child.id) }}" class="text-green-500 mr-1">수정</a>
+                    <form method="post" action="{{ url_for('sections.delete_section', nb_id=notebook.id, sec_id=child.id) }}" class="inline">
+                        <button class="text-red-500" onclick="return confirm('삭제하시겠습니까?')">삭제</button>
+                    </form>
+                </span>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
