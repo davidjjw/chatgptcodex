@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-xl font-bold mb-4">노트북 목록</h1>
+<a href="{{ url_for('notebooks.create_notebook') }}" class="text-blue-500">새 노트북</a>
+<ul class="mt-4 space-y-2">
+    {% for nb in notebooks %}
+    <li class="border p-2 flex justify-between">
+        <span>{{ nb.title }}</span>
+        <span>
+            <a href="{{ url_for('notebooks.edit_notebook', nb_id=nb.id) }}" class="mr-2 text-green-500">수정</a>
+            <form method="post" action="{{ url_for('notebooks.delete_notebook', nb_id=nb.id) }}" class="inline">
+                <button class="text-red-500" onclick="return confirm('삭제하시겠습니까?')">삭제</button>
+            </form>
+        </span>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
